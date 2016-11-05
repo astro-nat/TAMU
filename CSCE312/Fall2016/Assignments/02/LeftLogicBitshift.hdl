@@ -1,0 +1,161 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/Adder16.hdl
+
+/**
+ * Shift x left y bits, new bits are filled in with 0, you may not use any DFF or clocked chip in this implementation
+ * You may assume the maximum shift is 8-bit
+ */
+
+CHIP LeftLogicBitshift {
+    IN x[16], y[16];
+    OUT out[16];
+
+    PARTS:
+   // Put you code here:
+
+	// Barrel Shifter Using 4 16-bit Multiplexors. Best method.
+    Mux16(a=x,b[0]=false,b[1..15]=x[0..14],sel=y[0],out=Shift1output,out[0..13]=Shift1outputa);
+    Mux16(a=Shift1output,b[0..1]=false,b[2..15]=Shift1outputa,sel=y[1],out=Shift2output,out[0..11]=Shift2outputa);
+    Mux16(a=Shift2output,b[0..3]=false,b[4..15]=Shift2outputa,sel=y[2],out=Shift4output,out[0..7]=Shift4outputa);
+    Mux16(a=Shift4output,b[0..7]=false,b[8..15]=Shift4outputa,sel=y[3],out=out);
+   
+   // Barrel Shifter Using 64 1-bit Multiplexors
+   /*
+    Mux(a=x[0],b=false,sel=y[0],out=Bit1Shift1);
+    Mux(a=x[1],b=x[0],sel=y[0],out=Bit2Shift1);
+    Mux(a=x[2],b=x[1],sel=y[0],out=Bit3Shift1);
+    Mux(a=x[3],b=x[2],sel=y[0],out=Bit4Shift1);
+    Mux(a=x[4],b=x[3],sel=y[0],out=Bit5Shift1);
+    Mux(a=x[5],b=x[4],sel=y[0],out=Bit6Shift1);
+    Mux(a=x[6],b=x[5],sel=y[0],out=Bit7Shift1);
+    Mux(a=x[7],b=x[6],sel=y[0],out=Bit8Shift1);
+    Mux(a=x[8],b=x[7],sel=y[0],out=Bit9Shift1);
+    Mux(a=x[9],b=x[8],sel=y[0],out=Bit10Shift1);
+    Mux(a=x[10],b=x[9],sel=y[0],out=Bit11Shift1);
+    Mux(a=x[11],b=x[10],sel=y[0],out=Bit12Shift1);
+    Mux(a=x[12],b=x[11],sel=y[0],out=Bit13Shift1);
+    Mux(a=x[13],b=x[12],sel=y[0],out=Bit14Shift1);
+    Mux(a=x[14],b=x[13],sel=y[0],out=Bit15Shift1);
+    Mux(a=x[15],b=x[14],sel=y[0],out=Bit16Shift1);
+    
+    Mux(a=Bit1Shift1,b=false,sel=y[1],out=Bit1Shift2);
+    Mux(a=Bit2Shift1,b=false,sel=y[1],out=Bit2Shift2);
+    Mux(a=Bit3Shift1,b=Bit1Shift1,sel=y[1],out=Bit3Shift2);
+    Mux(a=Bit4Shift1,b=Bit2Shift1,sel=y[1],out=Bit4Shift2);
+    Mux(a=Bit5Shift1,b=Bit3Shift1,sel=y[1],out=Bit5Shift2);
+    Mux(a=Bit6Shift1,b=Bit4Shift1,sel=y[1],out=Bit6Shift2);
+    Mux(a=Bit7Shift1,b=Bit5Shift1,sel=y[1],out=Bit7Shift2);
+    Mux(a=Bit8Shift1,b=Bit6Shift1,sel=y[1],out=Bit8Shift2);
+    Mux(a=Bit9Shift1,b=Bit7Shift1,sel=y[1],out=Bit9Shift2);
+    Mux(a=Bit10Shift1,b=Bit8Shift1,sel=y[1],out=Bit10Shift2);
+    Mux(a=Bit11Shift1,b=Bit9Shift1,sel=y[1],out=Bit11Shift2);
+    Mux(a=Bit12Shift1,b=Bit10Shift1,sel=y[1],out=Bit12Shift2);
+    Mux(a=Bit12Shift1,b=Bit11Shift1,sel=y[1],out=Bit13Shift2);
+    Mux(a=Bit14Shift1,b=Bit12Shift1,sel=y[1],out=Bit14Shift2);
+    Mux(a=Bit15Shift1,b=Bit13Shift1,sel=y[1],out=Bit15Shift2);
+    Mux(a=Bit16Shift1,b=Bit14Shift1,sel=y[1],out=Bit16Shift2);
+    
+    Mux(a=Bit1Shift2,b=false,sel=y[2],out=Bit1Shift4);
+    Mux(a=Bit2Shift2,b=false,sel=y[2],out=Bit2Shift4);
+    Mux(a=Bit3Shift2,b=false,sel=y[2],out=Bit3Shift4);
+    Mux(a=Bit4Shift2,b=false,sel=y[2],out=Bit4Shift4);
+    Mux(a=Bit5Shift2,b=Bit1Shift2,sel=y[2],out=Bit5Shift4);
+    Mux(a=Bit6Shift2,b=Bit2Shift2,sel=y[2],out=Bit6Shift4);
+    Mux(a=Bit7Shift2,b=Bit3Shift2,sel=y[2],out=Bit7Shift4);
+    Mux(a=Bit8Shift2,b=Bit4Shift2,sel=y[2],out=Bit8Shift4);
+    Mux(a=Bit9Shift2,b=Bit5Shift2,sel=y[2],out=Bit9Shift4);
+    Mux(a=Bit10Shift2,b=Bit6Shift2,sel=y[2],out=Bit10Shift4);
+    Mux(a=Bit11Shift2,b=Bit7Shift2,sel=y[2],out=Bit11Shift4);
+    Mux(a=Bit12Shift2,b=Bit8Shift2,sel=y[2],out=Bit12Shift4);
+    Mux(a=Bit13Shift2,b=Bit9Shift2,sel=y[2],out=Bit13Shift4);
+    Mux(a=Bit14Shift2,b=Bit10Shift2,sel=y[2],out=Bit14Shift4);
+    Mux(a=Bit15Shift2,b=Bit11Shift2,sel=y[2],out=Bit15Shift4);
+    Mux(a=Bit16Shift2,b=Bit12Shift2,sel=y[2],out=Bit16Shift4);
+    
+    Mux(a=Bit1Shift4,b=false,sel=y[3],out=out[0]);
+    Mux(a=Bit2Shift4,b=false,sel=y[3],out=out[1]);
+    Mux(a=Bit3Shift4,b=false,sel=y[3],out=out[2]);
+    Mux(a=Bit4Shift4,b=false,sel=y[3],out=out[3]);
+    Mux(a=Bit5Shift4,b=false,sel=y[3],out=out[4]);
+    Mux(a=Bit6Shift4,b=false,sel=y[3],out=out[5]);
+    Mux(a=Bit7Shift4,b=false,sel=y[3],out=out[6]);
+    Mux(a=Bit8Shift4,b=false,sel=y[3],out=out[7]);
+    Mux(a=Bit9Shift4,b=Bit1Shift4,sel=y[3],out=out[8]);
+    Mux(a=Bit10Shift4,b=Bit2Shift4,sel=y[3],out=out[9]);
+    Mux(a=Bit11Shift4,b=Bit3Shift4,sel=y[3],out=out[10]);
+    Mux(a=Bit12Shift4,b=Bit4Shift4,sel=y[3],out=out[11]);
+    Mux(a=Bit13Shift4,b=Bit5Shift4,sel=y[3],out=out[12]);
+    Mux(a=Bit14Shift4,b=Bit6Shift4,sel=y[3],out=out[13]);
+    Mux(a=Bit15Shift4,b=Bit7Shift4,sel=y[3],out=out[14]);
+    Mux(a=Bit16Shift4,b=Bit8Shift4,sel=y[3],out=out[15]);
+    */
+    
+    // First Success. Works, but mess of logic gates.
+    /*
+    Nor(a=y[0],b=y[1],out=shift0a);
+	Nor(a=y[2],b=y[3],out=shift0b);
+	And(a=shift0a,b=shift0b,out=shift0);
+	Not(in=shift0,out=notshift0);
+	
+	And(a=y[0],b=notshift0,out=shift1);
+	Not(in=shift1,out=notshift1);
+	
+	And(a=y[1],b=notshift0,out=shift2a);
+	And(a=shift2a,b=notshift1,out=shift2);
+	Not(in=shift2,out=notshift2);
+	
+	And(a=y[0],a=y[1],out=shift3a);
+	And(a=shift3a,b=notshift1,out=shift3b);
+	And(a=shift3b,b=notshift2,out=shift3);
+	Not(in=shift3,out=notshift3);
+
+	And(a=y[2],b=notshift1,out=shift4a);
+	And(a=shift4a,b=notshift2,out=shift4b);
+	And(a=shift4b,b=notshift3,out=shift4);
+	Not(in=shift4,out=notshift4);
+	
+	And(a=y[2],b=y[0],out=shift5a);
+	And(a=shift5a,b=notshift1,out=shift5b);
+	And(a=shift5b,b=notshift2,out=shift5c);
+	And(a=shift5c,b=notshift3,out=shift5d);
+	And(a=shift5d,b=notshift4,out=shift5);
+	Not(in=shift5,out=notshift5);
+	
+	And(a=shift5,b=y[1],out=shift6a);
+	And(a=shift6a,b=notshift1,out=shift6b);
+	And(a=shift6b,b=notshift2,out=shift6c);
+	And(a=shift6c,b=notshift3,out=shift6d);
+	And(a=shift6d,b=notshift4,out=shift6e);
+	And(a=shift6e,b=notshift5,out=shift6);
+	Not(in=shift6,out=notshift6);
+	
+	And(a=y[0],b=shift6,out=shift7a);
+	And(a=shift7a,b=notshift1,out=shift7b);
+	And(a=shift7b,b=notshift2,out=shift7c);
+	And(a=shift7c,b=notshift3,out=shift7d);
+	And(a=shift7d,b=notshift4,out=shift7e);
+	And(a=shift7e,b=notshift5,out=shift7f);
+	And(a=shift7f,b=notshift6,out=shift7);
+	Not(in=shift7,out=notshift7);
+	
+	And(a=y[3],b=notshift1,out=shift8a);
+	And(a=shift8a,b=notshift2,out=shift8b);
+	And(a=shift8b,b=notshift3,out=shift8c);
+	And(a=shift8c,b=notshift4,out=shift8d);
+	And(a=shift8d,b=notshift5,out=shift8e);
+	And(a=shift8e,b=notshift6,out=shift8f);
+	And(a=shift8f,b=notshift7,out=shift8);
+	
+    Mux16(a=x[0..15],b=x[0..15],sel=shift0,out=shift1input);
+    Mux16(a=shift1input,b[0]=false,b[1..15]=x[0..14],sel=shift1,out=shift2input);
+    Mux16(a=shift2input,b[0..1]=false,b[2..15]=x[0..13],sel=shift2,out=shift3input);
+    Mux16(a=shift3input,b[0..2]=false,b[3..15]=x[0..12],sel=shift3,out=shift4input);
+    Mux16(a=shift4input,b[0..3]=false,b[4..15]=x[0..11],sel=shift4,out=shift5input);
+    Mux16(a=shift5input,b[0..4]=false,b[5..15]=x[0..10],sel=shift5,out=shift6input);
+    Mux16(a=shift6input,b[0..5]=false,b[6..15]=x[0..9],sel=shift6,out=shift7input);
+    Mux16(a=shift7input,b[0..6]=false,b[7..15]=x[0..8],sel=shift7,out=shift8input);
+    Mux16(a=shift8input,b[0..7]=false,b[8..15]=x[0..7],sel=shift8,out=out);
+    */
+}

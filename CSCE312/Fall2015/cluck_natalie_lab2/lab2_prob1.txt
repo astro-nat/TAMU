@@ -1,0 +1,45 @@
+Lab 2 Prob 1
+
+1. 
+
+
+
+Submitted prob1_1a and prob1_2a Logism files.
+
+
+2. 
+
+
+
+a.) 4x single 2-input OR gates (741G32), 2x single 2-input AND gates (741G08)
+
+
+b.) 3x single 2-input OR gates (741G32), 6x single 2-input AND gates (741G08), 1x single inverter (741G04)
+
+
+
+
+3. 
+
+About (2.5x3) ~ 7.5 ns (three OR gates with about 2.5 ns delay each)
+
+
+4. 
+
+Propagation Delay Time High to Low Level Output. Two inputs -> one output. Used typical value for average delay.
+
+
+
+Lab 2 Prob 2
+
+1.
+
+a.) 8 (7 for the cars, 1 for "off")
+b.) 3
+c.) 8x3 encoder, 3x8 decoder
+
+2. N/A
+
+3. N/A
+
+4. The eight switches input into the encoder, which then uses the bus to transmit bits via wires to the decoder, which then lights the segment designated to a car when emergency switch is activated. Each OR gate in the encoder takes the eight switches, transmits to the AND gates which then transmits into the seven OR gates, which directs into the 7 segment display. The first switch, or “off” switch, goes directly to the DP port.

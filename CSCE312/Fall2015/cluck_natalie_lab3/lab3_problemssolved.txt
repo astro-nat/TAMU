@@ -1,0 +1,58 @@
+﻿Natalie Cluck
+
+10/19/2015
+
+Lab 3
+
+
+
+Problem 1
+
+
+
+1. N/A
+
+
+
+2. Solution 1: Timer Resolution = 1 nanoseconds. Calibration time = 0 seconds and 498 nanoseconds. The measured code took 0 seconds and 10714 nano seconds to run.
+
+Solution 2:  Timer Resolution = 1 nanoseconds. Calibration time = 0 seconds and 551 nanoseconds. The measured code took 0 seconds and 93 nano seconds to run.
+
+
+3. Lab 1 Prob 4: Timer Resolution = 1 nanoseconds. Calibration time = 0 seconds and 460 nanoseconds. The measured code took 0 seconds and 449 nano seconds to run.
+
+
+
+4. Solution 1 code is much slower because it has to check all the bits everytime. Solution 2 is fast because it only checks an integer output rather than combining bit sequences. Lab 1 Prob 4 is fast because it’s only making one comparison with a final output, checking each bit once.
+
+
+
+5. A faster solution for the slowest problem would be to decrease the number of times the output is changed.
+
+
+
+Problem 2
+
+
+
+1. SPST: A single-pole, single-throw (SPST) switch has one output and one input. The switch will either be closed or completely disconnected. SPSTs are perfect for on-off switching. They’re also a very common form of momentary switches. SPST switches should only require two terminals.
+
+NO: When a button is open until actuated, it is normally open (NO). When actuated, the circuit is closed, also called “push-to-make” switch. 
+
+
+
+2. Problem2.circ file. (Should work but keeps showing errors.)
+
+
+
+3. Added labels to circuits in problem2.circ file.
+
+
+
+Problem 3
+
+
+
+1. problem3num1.circ file.
+
+2. problem3num2 file.xls file.

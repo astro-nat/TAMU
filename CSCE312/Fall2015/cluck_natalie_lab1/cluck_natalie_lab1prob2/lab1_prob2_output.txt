@@ -1,0 +1,1 @@
+Unsigned int data type is 4 bits or 32 bytes long.Double data type is 8 bits or 64 bytes long.Long data type is 8 bits or 64 bytes long.Long long data type is 8 bits or 64 bytes long.Char data type is 1 bits or 8 bytes long.Float data type is 4 bits or 32 bytes long.Struct timeval data type is 16 bits or 128 bytes long.

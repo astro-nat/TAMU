@@ -1,0 +1,8 @@
+Driver in Seat? 1
+Seat Belt Fastened? 0
+Engine Running? 1
+Doors Closed? 0
+Key in Car?0
+Door Lock Lever activated? 0
+Brake Pedal pressed? 0
+Car moving? 0

@@ -1,0 +1,13 @@
+Problem 4 Code:
+
+Timer Resolution = 1 nanoseconds 
+ Calibrartion time = 0 seconds and 518 nanoseconds 
+ The measured code took 0 seconds and  60 nano seconds to run 
+
+Problem 3 Code:
+
+Timer Resolution = 1 nanoseconds 
+ Calibrartion time = 0 seconds and 682 nanoseconds 
+ The measured code took 0 seconds and  4294967251 nano seconds to run
+
+* Generated on linux.cse.tamu.edu

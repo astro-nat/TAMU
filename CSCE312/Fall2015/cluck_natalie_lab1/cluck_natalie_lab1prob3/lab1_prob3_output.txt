@@ -1,0 +1,3 @@
+Bell is on!
+Door is locked.
+Brakes are not activated.
