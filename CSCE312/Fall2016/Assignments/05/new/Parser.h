@@ -40,6 +40,10 @@ struct Parser {
 		else return false;
 	}
 	
+	int getAddress() {
+		return current_address;
+	}
+	
 	void advance() {
 		current_address++;
 	}
