@@ -5,6 +5,8 @@
 #include <vector>
 #include <fstream>
 #include <string.h>
+#include <regex>
+#include <string>
 
 using namespace std;
 
@@ -19,20 +21,7 @@ struct Parser {
 	Parser(string filename) {
 	
 		inputfile.open(filename);
-		string line = "";
-		while(getline(inputfile,line)) {
-			if(line.length() > 1){
-				if(line.find("//") == std::string::npos){
-					commands.push_back(line);
-				}
-			}
-		}
-	
 		current_address = 0;
-	}
-	
-	vector<string> getCommands() {
-		return commands;	
 	}
 
 	bool hasMoreCommands() {
@@ -70,6 +59,7 @@ struct Parser {
 		// to be changed
 		if (current_type == C_COMMAND)
 			return current;
+		else return "";
 	}
 	
 	string comp() {
