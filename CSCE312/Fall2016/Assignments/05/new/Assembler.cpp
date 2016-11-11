@@ -12,10 +12,17 @@
 
 using namespace std;
 
+bool find_val(string s, char val) {
+	for(int i = 0; i < s.length(); i++) {
+		if (s[i] == val) { return true; }
+	}
+    return false;
+}
+
 bool is_integer(string s){
-		bool final = false;
+		bool final = true;
 		for(int i = 0; i < s.length(); i++) {
-			if (isdigit(s[i])) { final = true; }
+			if (isalpha(s[i])) { return false; }
 		}
     	return final;
 }
@@ -64,7 +71,7 @@ int main() {
 		else if (regex_search(line,match,l_command) == 1) {
 			parser->current_type = Parser::L_COMMAND;
 			if (!is_integer(string(match[1]))) {
-				symboltable->addEntry(match[1],temp_address);
+				symboltable->addEntry(match[1],parser->current_address);
 				temp_address++;
 				parser->commands.push_back(line);
 			}
@@ -116,14 +123,19 @@ int main() {
 				}
 				else {
 					// adds symbol to symbol table, starting at address 16
-					symboltable->addEntry(match[1],temp_address);
+					symboltable->addEntry(match[1],parser->current_address);
 					temp_address++;
 				}
 			}
 			else {
-				for(int i = 1; i < 8; i++) {
-						current_binary[i] = bitset<7>(symboltable->GetAddress(match[1]))[i];
-					}
+				bitset<7> num = bitset<7>(symboltable->GetAddress(match[1]));
+				current_binary[15] = num[0];
+				current_binary[14] = num[1];
+				current_binary[13] = num[2];
+				current_binary[12] = num[3];
+				current_binary[11] = num[4];
+				current_binary[10] = num[5];
+				current_binary[9] = num[6];
 			}
 			
 			// writes binary to hack file
@@ -146,10 +158,12 @@ int main() {
 			current_binary[1] = 1;
 			current_binary[2] = 1;
 		
-			if (string(match[0]).find("=") && (!(string(match[0]).find(";")))) {
-		
-				if (match[2] != "") {
-					cout << "Match 2: " << match[2] << endl;
+			if (find_val(string(match[0]),'=')) {
+				if (find_val(string(match[0]),';')) {
+					cout << "Both ; and = " << endl;
+					string dest = match[1];
+					string comp = match[2];
+					string jump = match[3];
 					
 					current_binary[9] = code->comp(match[2])[0];
 					current_binary[8] = code->comp(match[2])[1];
@@ -158,56 +172,53 @@ int main() {
 					current_binary[5] = code->comp(match[2])[4];
 					current_binary[4] = code->comp(match[2])[5];
 					current_binary[3] = code->comp(match[2])[6];
-				}
-				
-				if (match[1] != "") {
-					cout << "Match 1: " << string(match[1]) << endl;
+					
+					current_binary[13] = code->jump(match[3])[0];
+					current_binary[14] = code->jump(match[3])[1];
+					current_binary[15] = code->jump(match[3])[2];
+					
 					current_binary[12] = code->dest(match[1])[0];
-					cout << "test1 " << endl;
 					current_binary[11] = code->dest(match[1])[1];
-					cout << "test2" << endl;
 					current_binary[10] = code->dest(match[1])[2];
-					cout << "test3" << endl;
 				}
+				else {
+					cout << "Only = " << endl;
+					current_binary[9] = code->comp(match[2])[0];
+					current_binary[8] = code->comp(match[2])[1];
+					current_binary[7] = code->comp(match[2])[2];
+					current_binary[6] = code->comp(match[2])[3];
+					current_binary[5] = code->comp(match[2])[4];
+					current_binary[4] = code->comp(match[2])[5];
+					current_binary[3] = code->comp(match[2])[6];
+					
+					current_binary[12] = code->dest(match[1])[0];
+					current_binary[11] = code->dest(match[1])[1];
+					current_binary[10] = code->dest(match[1])[2];
+				}
+				}
+			else if (find_val(string(match[0]),';')) {
+				cout << "Only ; " << endl;
+				current_binary[9] = code->comp(match[1])[0];
+				current_binary[8] = code->comp(match[1])[1];
+				current_binary[7] = code->comp(match[1])[2];
+				current_binary[6] = code->comp(match[1])[3];
+				current_binary[5] = code->comp(match[1])[4];
+				current_binary[4] = code->comp(match[1])[5];
+				current_binary[3] = code->comp(match[1])[6];
 				
-				if(match[3] != "") {
-					cout << "Match 3: " << match[3];
-					if (string(match[0]).find(";")) {
-						current_binary[13] = code->jump(match[3])[0];
-						current_binary[14] = code->jump(match[3])[1];
-						current_binary[15] = code->jump(match[3])[2];
-					} 
-				}
-				
-				cout << "test4" << endl;
-			}
-			
-			else if (string(match[0]).find(";") &&  (!(string(match[0]).find(";")))) {
-				if (match[1] != "") {
-				current_binary[12] = code->dest(match[1])[0];
-				current_binary[11] = code->dest(match[1])[1];
-				current_binary[10] = code->dest(match[1])[2];
-				}
-				if(match[2] != "") {
 				current_binary[13] = code->jump(match[2])[0];
 				current_binary[14] = code->jump(match[2])[1];
 				current_binary[15] = code->jump(match[2])[2];
-				}
+			}
+		
 				
-				cout << "test5" << endl;
-			}
-
-			else {
-				cout << "Hmm" << endl;
-			}
-			
 			//cout << "C COMMAND: " << match[0] << endl;
 
 			// writes binary to hack file
 			for(int i = 0; i < 16; i++) {
 				os << current_binary[i];
 			}
-			cout << "test6" << endl;
+			
 			os << endl;
 		} // end else if
 		

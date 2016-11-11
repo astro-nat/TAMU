@@ -21,7 +21,7 @@ struct Parser {
 	Parser(string filename) {
 	
 		inputfile.open(filename);
-		current_address = 0;
+		current_address = 16;
 	}
 
 	bool hasMoreCommands() {
