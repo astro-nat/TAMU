@@ -69,7 +69,6 @@ class Code {
 	
 public:
 	bitset<3> dest(string mnem) {
-		cout << "dest : " << dest_table.at(mnem);
 		return bitset<3>(dest_table.at(mnem));
 	}
 
