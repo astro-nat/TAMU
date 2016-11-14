@@ -5,7 +5,7 @@
 
 /**
  * The complete address space of the Hack computer's memory,
- * including RAM and memory-mapped I/O. 
+ * including ram1 and memory-mapped I/O. 
  * The chip facilitates read and write operations, as follows:
  *     Read:  out(t) = Memory[address(t)](t)
  *     Write: if load(t-1) then Memory[address(t-1)](t) = in(t-1)
@@ -27,10 +27,18 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-	DMux4Way(in=load, sel=address[13..14], a=loadram1, b=loadram2, c=loadscreen, d=loadkbd);
-	Or(a=loadram1, b=loadram2, out=loadram);
-    RAM16K(in=in, load=loadram, address=address[0..13], out=ramout);
-    Screen(in=in, load=loadscreen, address=address[0..12], out=scrout);
-    Keyboard(out=kbout);
-    Mux4Way16(a=ramout, b=ramout, c=scrout, d=kbout, sel=address[13..14], out=out);
+    
+    Mux4Way16(a=read,b=read,c=screen_output,d=k,sel=address[13..14],out=out);
+	Or(a=ram1,b=ram2,out=load2);
+	
+	// only upper 16K+8K+1 words used
+	RAM16K(in=in,load=load2,address=address[0..13],out=read);
+	
+	// access to range 0x4000-0x5FFF accesses screen memory map
+	DMux4Way(in=load,sel=address[13..14],a=ram1,b=ram2,c=screen_load,d=keyboard_output);
+	Screen(in=in,load=screen_load,address=address[0..12],out=screen_output);
+	
+	
+	Keyboard(out=k);
+    
 }
