@@ -1,0 +1,9 @@
+For problem 1: Adjusted parameters and colors to test. Only used textbook. Tried to formulate new function, but couldn't figure out win.attach(). Added entire would-be function in main(). If new function, r1...r2...etc. did not recognize type.
+
+For problem 2: Adjusted parameters and colors to test. Added Point tl and Simple_window function in makehouse() function instead of main(). Not good to do, but it compiled. Need to ask Welch/TA how it works.
+
+For problem 3: Adjusted parameters and changed images to test. Easy.
+
+For problem 4: Added cout's when having issues compiling. Used links listed at top of code as references (Did not copy code sections exactly. Formulated my own formula.).
+
+For problem 5: Continuously receive same error regarding "Simple_window.h" file. Have received same error on other homework problems before. Because of error, cannot tell if there are logic errors. Need to work out code section creating "combos" when level is 2 and up. Added cout's to track errors.

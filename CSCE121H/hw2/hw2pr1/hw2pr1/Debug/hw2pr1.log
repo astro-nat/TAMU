@@ -1,0 +1,24 @@
+﻿Build started 9/10/2014 1:31:36 PM.
+     1>Project "N:\hw2\hw2pr1\hw2pr1\hw2pr1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\hw2pr1.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt hw2pr1.cpp
+         hw2pr1.cpp
+     1>c:\program files (x86)\microsoft visual studio 12.0\vc\include\algorithm(2047): error C2064: term does not evaluate to a function taking 1 arguments
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\algorithm(2072) : see reference to function template instantiation 'void std::_Random_shuffle<int*,int,__w64 int>(_RanIt,_RanIt,_Fn1 &,_Diff *)' being compiled
+                 with
+                 [
+                     _RanIt=int *
+         ,            _Fn1=int
+         ,            _Diff=__w64 int
+                 ]
+                 n:\hw2\hw2pr1\hw2pr1\hw2pr1.cpp(28) : see reference to function template instantiation 'void std::random_shuffle<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int>>>,int&>(_RanIt,_RanIt,_Fn1)' being compiled
+                 with
+                 [
+                     _RanIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int>>>
+         ,            _Fn1=int &
+                 ]
+     1>Done Building Project "N:\hw2\hw2pr1\hw2pr1\hw2pr1.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.84

@@ -1,0 +1,438 @@
+The Wizard of Oz
+1939
+twoo.jpg
+3
+Judy Garland
+Frank Morgan
+Ray Bolger
+5
+Adventure
+Family
+Fantasy
+Musical
+Old
+~~~~~
+Citizen Kane
+1941
+ck.jpg
+2
+Orson Welles
+Joseph Cotten
+5
+Drama
+Mystery
+Old
+Favorite
+Classic
+~~~~~
+The Godfather
+1972
+tgf.jpg
+3
+Marlon Brando
+Al Pacino
+James Caan
+5
+Crime
+Drama
+Classic
+Old
+Favorite
+~~~~~
+The Third Man
+1949
+t3m.jpg
+2
+Orson Welles
+Joseph Cotten
+5
+Mystery
+Thriller
+Sequel
+Classic
+Old
+~~~~~
+The Princess Bride
+1987
+princess.jpg
+3
+Cary Elwes
+Mandy Patinkin
+Robin Wright
+5
+Comedy
+Favorite
+Romance
+Drama
+Nerdy
+~~~~~
+Silver Linings Playbook
+2012
+silver.jpg
+3
+Bradley Cooper
+Jennifer Lawrence
+Robert De Niro
+5
+Comedy
+Drama
+Romance
+Recent
+Popular
+~~~~~
+Pitch Perfect
+2012
+pitchperfect.jpg
+3
+Rebel Wilson
+Anna Kendrick
+Brittany Snow
+5
+Comedy
+Musical
+Romance
+Popular
+Recent
+~~~~~
+Elf
+2003
+elf.jpg
+3
+Will Ferrell
+James Caan
+Bob Newhart
+5
+Comedy
+Family
+Fantasy
+Romance
+Christmas
+~~~~~
+The Devil Wears Prada
+2006
+devil.jpg
+3
+Anne Hathaway
+Meryl Streep
+Adrian Grenier
+5
+Comedy
+Drama
+Romance
+Favorite
+Fashionable
+~~~~~
+10 Things I Hate About You
+1999
+tenthings.jpg
+3
+Heath Leger
+Julia Stiles
+Joseph Gordon-Levitt
+5
+Comedy
+Drama
+Romance
+Teen
+Favorite
+~~~~~
+Titanic
+1997
+titanic.jpg
+3
+Kate Winslet
+Leonardo DiCaprio
+Billy Zane
+5
+Drama
+Romance
+Favorite
+Adventure
+Biography
+~~~~~
+Tangled
+2010
+tangled.jpg
+3
+Mandy Moore
+Zachary Levi
+Donna Murphy
+6
+Animation
+Comedy
+Family
+Fantasy
+Musical
+Romance
+~~~~~
+Scott Pilgrim vs. the World
+2010
+scott.jpg
+2
+Michael Cera
+Mary Elizabeth Winstead
+5
+Action
+Comedy
+Romance
+Favorite
+Recent
+~~~~~
+She's the Man
+2006
+she.jpg
+3
+Amanda Bynes
+Laura Ramsey
+Channing Tatum
+5
+Comedy
+Romance
+Drama
+Teen
+Bad
+~~~~~
+Warm Bodies
+2013
+warmbodies.jpg
+3
+Nicholas Hoult
+Teresa Palmer
+John Malkovich
+5
+Comedy
+Horror
+Romance
+Teen
+Zombie
+~~~~~
+Sleepless in Seattle
+1993
+seattle.jpg
+2
+Tom Hanks
+Meg Ryan
+5
+Comedy
+Drama
+Romance
+Favorite
+Sappy
+~~~~~
+Breakfast at Tiffany's
+1961
+breakfast.jpg
+3
+Audrey Hepburn
+George Peppard
+Patricia Neal
+5
+Comedy
+Drama
+Romance
+Classic
+Old
+~~~~~
+Mr. & Mrs. Smith
+2005
+smith.jpg
+2
+Brad Pitt
+Angelina Jolie
+5
+Action
+Comedy
+Crime
+Romance
+Favorite
+~~~~~
+Forrest Gump
+1994
+forrest.jpg
+3
+Tom Hanks
+Robin Wright
+Sally Field
+5
+Drama
+Romance
+Favorite
+Classic
+Biography
+~~~~~
+Mrs. Doubtfire
+1993
+doubtfire.jpg
+2
+Robin Williams
+Sally Field
+5
+Comedy
+Drama
+Family
+Favorite
+Funny
+~~~~~
+Saving Private Ryan
+1998
+savingpvtryan.jpg
+2
+Tom Hanks
+Matt Damon
+5
+Action
+Drama
+Favorite
+Action
+Romance
+~~~~~
+The Breakfast Club
+1985
+breakfastclub.jpg
+3
+Emilio Estevez
+Judd Nelson
+Molly Ringwald
+2
+Comedy
+Drama
+~~~~~
+The Social Network
+2010
+social.jpg
+3
+Jesse Eisenberg
+Andrew Garfield
+Justin Timberlake
+5
+Biography
+Drama
+Comedy
+Romance
+Favorite
+~~~~~
+The Hunger Games
+2012
+hunger.jpg
+3
+Jennifer Lawrence
+Josh Hutcherson
+Liam Hemsworth
+5
+Adventure
+Favorite
+Sci-Fi
+Recent
+Romance
+~~~~~
+Interstellar
+2014
+interstellar.jpg
+3
+Matthew McConaughey
+Anne Hathaway
+Jessica Chastain
+5
+Adventure
+Sci-Fi
+Drama
+Recent
+Popular
+~~~~~
+The Amazing Spider-Man
+2012
+spiderman.jpg
+3
+Andrew Garfield
+Emma Stone
+Rhys Ifans
+5
+Action
+Adventure
+Fantasy
+Superhero
+Romance
+~~~~~
+Get Smart
+2008
+smart.jpg
+3
+Steve Carell
+Anne Hathaway
+Dwayne Johnson
+5
+Action
+Adventure
+Comedy
+Funny
+Favorite
+~~~~~
+Fast & Furious
+2009
+furious.jpg
+3
+Vin Diesel
+Paul Walker
+Michelle Rodriguez
+5
+Action
+Crime
+Drama
+Hot
+Recent
+~~~~~
+Avatar
+2009
+avatar.jpg
+3
+Sam Worthington
+Zoe Saldana
+Sigourney Weaver
+5
+Action
+Adventure
+Fantasy
+Animated
+Popular
+~~~~~
+Alien
+1979
+alien.jpg
+3
+Sigourney Weaver
+Tom Skerritt
+John Hurt
+5
+Horror
+Sci-Fi
+Scary
+Classic
+Old
+~~~~~
+Guardians of the Galaxy
+2014
+guardians.jpg
+3
+Chris Pratt
+Vin Diesel
+Bradley Cooper
+5
+Action
+Adventure
+Sci-Fi
+Popular
+Recent
+~~~~~
+National Treasure
+2004
+treasure.jpg
+3
+Nicolas Cage
+Diane Kruger
+Justin Bartha
+5
+Action
+Adventure
+Mystery
+Nicholas Cage
+Comedy

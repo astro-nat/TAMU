@@ -1,0 +1,7 @@
+Natalie Cluck
+CSCE 314 Section 501
+Dr. Hyunyoung Lee
+
+3. Task 3: Explain why the above ordering is not a good choice for a natural ordering of the shape class. Write your answer in a text file natural-ordering-answer.txt and include the file in your a6 zip folder (or tar ball).
+
+Answer: Sorting shapes by area is not a consistent comparable for everyone. Perhaps ordering by number of sides would be a better comparison, since it applies as a better property of comparing shape objects.

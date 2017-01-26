@@ -1,0 +1,43 @@
+
+#include "Simple_window.h"
+#include "Graph.h"
+#include "std_lib_facilities_4.h"
+
+using namespace Graph_lib;
+
+int main(){
+        try
+        {
+
+        Point tl {220,100};
+
+        Simple_window win {tl,610,610,"Canvas"};
+                // screen coordinate tl for top left corner
+                // window size(600*400)
+                // title: Canvas
+
+        void makerect(h,w)
+                int x = 10; void makerect(h,w)
+                int x = 10;
+
+        Rectangle r {Point{x,y},200, 200};
+        win.attach(r);
+        win.set_label("Canvas");
+
+        win.wait_for_button(); //display
+
+
+
+
+        }
+        catch(exception& e)
+        {
+
+                return 1;
+        }
+        catch(...)
+        {
+
+                return 2;
+        }
+}

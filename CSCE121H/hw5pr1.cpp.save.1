@@ -1,0 +1,71 @@
+	Genre getgenre() { return genre; };
+	vector<int> getscore() { return score; };
+	
+	MyMDB(string title,int year,string actor,Genre genre,int 
+score):title(title),year(year),actor(actor),genre(genre),score(score);
+};
+
+void showMenu(){
+	cout << "Welcome to the movie database\n";
+	cout << "1. Add a movie to the list\n";
+	cout << "2. View information about a movie.\n";
+	cout << "3. Update the file.\n";
+	cout << "4. Display average, min, max, or median score of 
+movie.\n";
+	cout << "5. List all movies starring a particular 
+actor/actress.\n";
+	cout << "6. List all movies made in a particular year.\n";
+}
+	
+int main() {
+	//ability to read and write information
+	ofstream myfile;
+	cout << "Please enter file name: ";
+	cin >> userinput;
+	
+	
+	//Device format for storing information
+	
+	//Declare variables for movie content
+	//ask user for file name. if it equals the file name assigned to 
+the variable "filename" (or choose something else), give menu options 
+(if/else statements? or case?)
+	
+	//1. enter new movie and its information (separate couts)
+	//2. View all information (read file)
+	//3. Update the information (write file)
+	//4. Display average/min/max/median score for movie
+	//5. Output titles of all movies starring particular actor
+	//6. Output titles of all movies made in particular year
+	
+	//Before exiting, program writes information to the file.
+	
+	cout << "Please enter name of output file: " << endl;
+	myfile.open(userinput);
+	myfile << gettitle() << endl << getyear() << endl << getactors() 
+<< endl << getgenre() << endl << getscores << endl;
+	char menuop;
+	showMenu();
+	switch(cin >> menuop)
+	{
+		case '1':
+			ifstream myfile;		
+		case '2':
+			string line;
+			if (myfile.is_open())
+			{ 
+				while ( getline (myfile,line))
+				{
+				cout << line << endl;
+			}
+			myfile.close();
+			break;
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+	}
+	cin >> iname;
+	ifstream ist {iname};
+	if (!ist) error("can't open input file ",iname);
+};
