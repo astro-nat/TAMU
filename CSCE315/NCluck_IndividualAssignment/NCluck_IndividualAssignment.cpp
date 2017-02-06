@@ -10,6 +10,7 @@
  ********************************************************************************/
 
 #include <iostream>
+#include <numeric>
 #include <list>
 #include <regex>
 #include <algorithm>
@@ -33,46 +34,76 @@ class Textbook {
     string edition = "";   // edition (a positive integer)
     string pubDate = "";   // date the book was published (MM/YYYY format)
     
-    vector<Course> courses;
     bool required;
-    
-    double cost[4] = {0,0,0,0};        // costs for New, Used, Rented, and Electronic versions of Textbook
-    
+
 public:
     
+    double cost[4] = {0,0,0,0};        // costs for New, Used, Rented, and Electronic versions of Textbook
+
     // constructor for creating new textbook with ISBN and title
     Textbook(string ISBN,string title) : ISBN(ISBN),title(title) {};
     
+    // checks if textbook is required or optional
     bool isTextbookRequired() {
         return required;
     }
     
+    // prints all information about a textbook
     void printBook() {
+        
         cout << "Title: " << getTitle() << endl;
         cout << "ISBN: " << getISBN() << endl;
         cout << "Author: " << getAuthor() << endl;
         cout << "Edition: " << getEdition() << endl;
         cout << "Publication Date: " << getPubDate() << endl;
         
-        if (getCost("New") != 0) cout << "Cost for New Book: " << getCost("New") << endl;
-        //else cout << "Cost for New Book: -" << endl;
+        // prints costs of different versions of textbook, if they exist
+        if (getCost("New") != 0) {
+            cout << "Cost for New Book: " << getCost("New") << endl;
+        }
         
-        if (getCost("Used") != 0) cout << "Cost for Used Book: " << getCost("Used") << endl;
-        //else cout << "Cost for Used Book: -" << endl;
+        if (getCost("Used") != 0) {
+            cout << "Cost for Used Book: " << getCost("Used") << endl;
+        }
         
-        if (getCost("Rented") != 0) cout << "Cost for Rented Book: " << getCost("Rented") << endl;
-        //else cout << "Cost for Rented Book: -" << endl;
+        if (getCost("Rented") != 0) {
+            cout << "Cost for Rented Book: " << getCost("Rented") << endl;
+        }
         
-        if (getCost("Electronic") != 0) cout << "Cost for Electronic Book: " << getCost("Electronic") << endl;
-        //else cout << "Cost for Electronic Book: -" << endl;
+        if (getCost("Electronic") != 0) {
+            cout << "Cost for Electronic Book: " << getCost("Electronic") << endl;
+        }
+        
     }
     
-    string getISBN() { return ISBN; }
-    string getTitle() { return title; }
-    string getAuthor() { return author; }
-    string getEdition() { return edition; }
-    string getPubDate() { return pubDate; }
+    // returns ISBN
+    string getISBN() {
+        return ISBN;
+    }
+    
+    // returns title
+    string getTitle() {
+        return title;
+    }
+    
+    // return author
+    string getAuthor() {
+        return author;
+    }
+    
+    // returns edition
+    string getEdition() {
+        return edition;
+    }
+    
+    // returns publication date
+    string getPubDate() {
+        return pubDate;
+    }
+    
+    // returns cost based on version type
     double getCost(string booktype) {
+        
         if (booktype == "New") {
             return cost[0];
         }
@@ -88,13 +119,34 @@ public:
         else return 0;
     }
     
-    void setISBN(string i) { ISBN = i; }
-    void setTitle(string t) { title = t; }
-    void setAuthor(string a) { author = a; }
-    void setEdition(string e) { edition = e; }
-    void setPubDate(string d) { pubDate = d; }
+    // sets ISBN
+    void setISBN(string i) {
+        ISBN = i;
+    }
     
+    // sets title
+    void setTitle(string t) {
+        title = t;
+    }
+    
+    // sets author
+    void setAuthor(string a) {
+        author = a;
+    }
+    
+    // sets edition
+    void setEdition(string e) {
+        edition = e;
+    }
+    
+    // sets publication date
+    void setPubDate(string d) {
+        pubDate = d;
+    }
+    
+    // sets cost based on version
     void setCost(string booktype, double c) {
+        
         if (booktype == "New") {
             cost[0] = c;
         }
@@ -109,173 +161,240 @@ public:
         }
     }
     
-};
+}; // end Textbook class
 
 // defines variables and functions for Course object
 class Course {
     
-    string name;
-    string code = "";           // 4-letter code for department
-    string courseNum = "";      // 3-digit number for the course
-    //string sectionNum = "";     // 3-digit section number
-    //vector<string> books;     // list of textbooks for course with ISBN, required/optional
-    map<string,map<Textbook*,bool>> sectionTextbooks; // list of Textbooks for a 3-digit section number and whether it's required/optional
+    string name;                                        // name of Course
+    string code = "";                                   // 4-letter code for department
+    string courseNum = "";                              // 3-digit number for the course
+    vector<tuple<string,Textbook*,bool>> sectionTextbooks;
+    //map<string,map<Textbook*,bool>> sectionTextbooks;   // list of Textbooks for 3-digit section number and if it's required/optional
     
 public:
     
+    // Course constructor
     Course(string code,string courseNum,string name):code(code),courseNum(courseNum),name(name) {};
     
-    // get functions to return private variables
+    // gets Course code
     string getCode() {
         return code;
     }
     
+    // gets Course number
     string getCourseNum() {
         return courseNum;
     }
     
-    // set functions to change private variables
+    // sets Course code
     void setCode(int c) {
         code = c;
     }
     
+    // sets Course number
     void setCourseNum(string n) {
         courseNum = n;
     }
     
+    // returns a Textbook with a specific ISBN
     Textbook* findTextbook(string ISBN) {
         
-        map<string,map<Textbook*,bool>>::iterator it = sectionTextbooks.begin();
-        
-        while(it != sectionTextbooks.end()) {
+        // goes through section/Textbook/required mapping
+        for(int i = 0; i < sectionTextbooks.size(); i++) {
             
-            map<Textbook*,bool>::iterator books_it = (*it).second.begin();
-            
-            while(books_it != (*it).second.end()) {
-                /*
-                if((*(*books_it).first).getISBN() == ISBN){
-                    return (*((*books_it).first));
-                }
-                */
-                
+            // if ISBN found, return Textbook
+            if (get<1>(sectionTextbooks[i])->getISBN() == ISBN){
+                return get<1>(sectionTextbooks[i]);
             }
         }
-
+        
+        cout << "Textbook not found." << endl;
+        return NULL;
     }
     
-    /*
-    void addSectionNum(string s) {
-        //Textbook* book = new Textbook("123","CSE");
-        cout << typeid(sectionTextbooks[s]).name() << endl;
-        //sectionTextbooks[s].insert(std::make_pair(s,new Textbook("123","CSE")));
-    }
-     */
-    
+    // gets Course name
     string getName() {
         return name;
     }
     
+    // sets Course name
     void setName(string n) {
         name = n;
     }
     
-    
+    // adds a Textbook to a specific section and includes whether it is required/optional
     void addBooktoSection(string section, Textbook* book, bool required) {
-        sectionTextbooks[section].insert(pair<Textbook*,bool>(book,required));
-    }
-    
-    
-    bool isTextbookRequired(string section, Textbook book) {
-        //return sectionTextbooks[section][book].second;
-        return true;
-    }
-    
-    void listAllBooks() {
         
+        tuple<string,Textbook*,bool> newBook(section,book,required);
         /*
-         map<string,map<Textbook*,bool>>::iterator it = sectionTextbooks.begin();
-        
-         while(it != sectionTextbooks.end()) {
-         
-             map<Textbook*,bool>::iterator books_it = (*it).second.begin();
-         
-             while(books_it != (*it).second.end()) {
-                    if (isTextbookRequired((*it).first,*((*books_it).first))) {
-                        cout << "Required: " << endl;
-                        //Textbook book = (*books_it).first;
-                        (*((*books_it).first)).printBook();
-                    }
-                    else if (!isTextbookRequired((*it).first,*((*books_it).first))) {
-                        cout << "Optional: " << endl;
-                        (*((*books_it).first)).printBook();
-                    }
-             }
-        }
-         */
-        
+        get<0>(newBook) = section;
+        get<1>(newBook) = book;
+        get<2>(newBook) = required;
+        */
+        sectionTextbooks.push_back(newBook);
     }
     
+    // checks if textbook is required for a specific section
+    bool isTextbookRequired(string section, Textbook book) {
+        
+        // iterates through Textbook/section/required mapping
+        for(int i = 0; i < sectionTextbooks.size(); i++) {
+            
+            // if section and book ISBN match, return whether it's required
+            if ((get<0>(sectionTextbooks[i]) == section) && ((get<1>(sectionTextbooks[i])->getISBN()) == book.getISBN()))
+                
+                return get<2>(sectionTextbooks[i]);
+        }
+        
+        cout << "Section or textbook not found." << endl;
+        return false;
+    }
+    
+    // prints minimum and maximum average cost of all textbooks belonging to a course with certain code
+    void printMinMax(string c) {
+        
+        // initializes min and max variables
+        double min_num = 100000000;
+        double max_num = 0;
+        
+        // stores all minimum and maximum values
+        vector<int> minimum;
+        vector<int> maximum;
+        
+        // checks for a course code
+        if(c == code) {
+            
+            // iterates through section/Textbook map
+            for(int i = 0; i < sectionTextbooks.size(); i++) {
+                // iterates through Textbook/required map in each section
+                
+                // for each Textbook costs, find minimum and maximum value
+                for(int j = 0; j < 3; j++) {
+                    
+                    // collects each version cost for textbook
+                    double num = (*get<1>(sectionTextbooks[i])).cost[j];
+                    
+                    // finds minimum cost from all types of a textbook
+                    if (num < min_num) {
+                        min_num = num;
+                    }
+                    
+                    // finds maximum cost from all types of a textbook
+                    if (num > max_num) {
+                        max_num = num;
+                    }
+                }
+                
+                // collects minimum and maximum costs from a textbook
+                minimum.push_back(min_num);
+                maximum.push_back(max_num);
+            }
+        }
+        
+        // takes average of all minimum costs of textbooks and prints it
+        float min_average = accumulate( minimum.begin(), minimum.end(), 0.0)/minimum.size();
+        cout << "Minimum average: " << min_average << endl;
+        
+        // takes average of all maximum costs of textbooks and prints it
+        float max_average = accumulate( maximum.begin(), maximum.end(), 0.0)/maximum.size();
+        cout << "Maximum avearge: " << max_average << endl;
+        
+    } // end function
+    
+    // prints a list of all books for a course
+    void listAllBooks() {
+    
+        vector<tuple<string,Textbook*,bool>>::iterator it = sectionTextbooks.begin();
+        
+        if (sectionTextbooks.size() > 0) {
+         
+            // goes through all sections and textbooks
+            for(int i = 0; i < sectionTextbooks.size(); i++) {
+            
+                // saves section and textbook
+                string section = get<0>(sectionTextbooks[i]);
+                Textbook textbook = *(get<1>(sectionTextbooks[i]));
+                
+                // lists all required books for course
+                if (isTextbookRequired(section,textbook)) {
+                    cout << "Required: " << endl;
+                    textbook.printBook();
+                }
+                
+                // lists all optional books for course
+                else if (isTextbookRequired(section,textbook) == false) {
+                    cout << "Optional: " << endl;
+                    textbook.printBook();
+                }
+            }
+        }
+    }
+    
+    // prints a list of all books for a course with a specific section
     void listSectionBooks(string section) {
         
-        map<Textbook*,bool>::iterator books_it = sectionTextbooks[section].begin();
-        
-        while(books_it != sectionTextbooks[section].end()) {
-            if ((isTextbookRequired(section,(*((*books_it).first))))) {
+        // goes through all sections and textbooks
+        for(int i = 0; i < sectionTextbooks.size(); i++) {
+            
+            Textbook textbook = *(get<1>(sectionTextbooks[i]));
+            
+            // lists all required books for section
+            if (isTextbookRequired(section,textbook)) {
                 cout << "Required: " << endl;
-                (*((*books_it).first)).printBook();
-            }
-            else if (!(isTextbookRequired(section,*((*books_it).first)))) {
+                textbook.printBook();
+            } // end if
+            
+            // lists all optional books for section
+            else if (isTextbookRequired(section,textbook) == false) {
                 cout << "Optional: " << endl;
-                (*((*books_it).first)).printBook();
+                textbook.printBook();
             }
         }
-        
     }
     
-    
-};
+}; // end class
 
 
 // adds new Book object to map of Textbooks <ISBN,title>
 void addBooktoDB(string ISBN,string title,vector<Textbook>& textbooks) {
     
-     Textbook* book = new Textbook(ISBN,title); // creates new textbook with ISBN and title
-     bool found = false;  // will be used to find existing ISBN number in database
+     Textbook* book = new Textbook(ISBN,title);     // creates new textbook with ISBN and title
+     bool found = false;                            // will be used to find existing ISBN number in database
      
      // if ISBN found in database, update the title
      for(int i = 0; i < textbooks.size(); i++) {
-     if (textbooks[i].getISBN() == ISBN) {
-     textbooks[i].setTitle(title);
-     found = true;
-     }
+         if (textbooks[i].getISBN() == ISBN) {
+             textbooks[i].setTitle(title);
+             found = true;
+         }
      }
      
      // if ISBN not found in database, add new book with ISBN and title
      if (found == false) {
-     textbooks.push_back(*book);
+         textbooks.push_back(*book);
      }
-    
-}
+} // end function
 
+// adds Course to courses database
 void addCoursetoDB(string code,string& courseNum,string& courseTitle,vector<Course>& courses) {
     
-     Course* course = new Course(code,courseNum,courseTitle);
-     bool found = false;
-     
+     Course* course = new Course(code,courseNum,courseTitle);   // creates new course with code, course number, and title
+     bool found = false;                                        // will be used to find existing course
+    
+     // searches if course is in database. If so, update name
      for(int i = 0; i < courses.size(); i++) {
      
-     if (courses[i].getCode() == code) {
+         if ((courses[i].getCode() == code) && (courses[i].getCourseNum() == courseNum)) {
+             courses[i].setName(courseTitle);
+             found = true;
+         }
+    }
      
-     courses[i].setCourseNum(courseNum);
-     courses[i].setName(courseTitle);
-     found = true;
-     }
-     }
-     
-     // if code not found in database, add new course with code, course number, and section
-     if (found == false) {
-     courses.push_back(*course);
-     }
+    // if code not found in database, add new course with code, course number, and name
+    if (found == false) {
+        courses.push_back(*course);
+    }
 }
 
 // prints all Textbook objects and their information
@@ -293,21 +412,24 @@ void printBooks(vector<Textbook>& textbooks) {
      
          cout << "*" << endl;
      }
-    
 }
 
 // prints all Course objects and their information
 void printCourses(vector<Course>& courses) {
     
      if (sizeof(courses) != 0) {
+         
          vector<Course>::iterator it = courses.begin();
+         
          for(vector<Course>::iterator it = courses.begin(); it != courses.end(); it++) {
+             
              cout << (*it).getCode() << " " << (*it).getCourseNum() << " " << (*it).getName() << endl;
+             
          }
      }
-    
 }
 
+// changes string input to enum to use for switch case
 inputType hashInput(string input) {
     try {
         if (input == "B") return B;
@@ -327,9 +449,12 @@ inputType hashInput(string input) {
     catch(exception& e) {
         cout << "That operation does not exist." << endl;
     }
+    
+    // added to remove possible return type warning
+    return PM;
 }
 
-
+// gets rid of leading white space
 void trimLeadWhitespace(string& object) {
     object = regex_replace(object, regex("^ +"), "");
 }
@@ -346,6 +471,7 @@ int main() {
         string tracker;                                   // placeholder to track other types
         double cost;                                      // Textbook cost placeholder
         
+        // if input is Q, exit program
         while(type != "Q") {
             
             cout << "Input (H for help, Q to quit): ";
@@ -371,6 +497,7 @@ int main() {
                 // cases for different operation types
                 switch (hashInput(type)) {
                         
+                    // adds new book to Textbook database
                     case B:
                         
                         cin >> ISBN;                        // stores ISBN number
@@ -382,7 +509,8 @@ int main() {
                         
                         cout << "Done." << endl;
                         break;
-                        
+                    
+                    // updates author, edition, or publication date for a book
                     case D:
                         
                         cin >> ISBN >> tracker;   // stores ISBN and A, E, or D
@@ -409,7 +537,7 @@ int main() {
                                 }
                                 // updates publication date
                                 else if (tracker == "D") {
-                                    cout << "Updating publication date for \"" << textbooks[i].getTitle() << " ...\n\"";
+                                    cout << "Updating publication date for \"" << textbooks[i].getTitle() << "\" ...\n";
                                     getline(cin,date);
                                     trimLeadWhitespace(date);
                                     textbooks[i].setPubDate(date);
@@ -422,7 +550,8 @@ int main() {
                         
                         cout << "Done." << endl;
                         break;
-                        
+                    
+                    // updates cost of Textbook for new, used, rented, electronic versions
                     case M:
                         
                         cin >> ISBN >> cost >> tracker; // stores ISBN, cost value, and (N,U,R,E)
@@ -433,20 +562,24 @@ int main() {
                             // if found, updates textbook with cost for N,U,R,E
                             if (textbooks[i].getISBN() == ISBN) {
                                 
+                                // update new cost
                                 if (tracker == "N") {
-                                    cout << "Updating cost for new version of \"" << textbooks[i].getTitle() << " ...\n\"";
+                                    cout << "Updating cost for new version of \"" << textbooks[i].getTitle() << "\" ...\n";
                                     textbooks[i].setCost("New",cost);
                                 }
+                                // update used cost
                                 else if (tracker == "U") {
-                                    cout << "Updating cost for used version of \"" << textbooks[i].getTitle() << " ...\n\"";
+                                    cout << "Updating cost for used version of \"" << textbooks[i].getTitle() << "\" ...\n";
                                     textbooks[i].setCost("Used",cost);
                                 }
+                                // update rented cost
                                 else if (tracker == "R") {
-                                    cout << "Updating cost for rented version of \"" << textbooks[i].getTitle() << " ...\n\"";
+                                    cout << "Updating cost for rented version of \"" << textbooks[i].getTitle() << "\" ...\n";
                                     textbooks[i].setCost("Rented",cost);
                                 }
+                                // update electronic cost
                                 else if (tracker == "E") {
-                                    cout << "Updating cost for electronic version of \"" << textbooks[i].getTitle() << " ...\n\"";
+                                    cout << "Updating cost for electronic version of \"" << textbooks[i].getTitle() << "\" ...\n";
                                     cout << textbooks[i].getCost("Electronic") << endl;
                                     textbooks[i].setCost("Electronic",cost);
                                     cout << textbooks[i].getCost("Electronic") << endl;
@@ -456,7 +589,8 @@ int main() {
                         
                         cout << "Done." << endl;
                         break;
-                        
+                     
+                    // adds new course to course database
                     case C:
                         
                         cin >> code >> courseNum;
@@ -468,132 +602,192 @@ int main() {
                         
                         cout << "Done.\n";
                         break;
-                        
+                    
+                    // assign a book to a course
                     case A:
                         
-                        // assign a book to a course
                         cin >> ISBN >> code >> courseNum >> sectionNum >> tracker;
                         bool required;
                         
-                        if(tracker == "R") { required = true; }
-                        else { required = false; }
+                        // R means book is required, O means book is optional
+                        if(tracker == "R") {
+                            
+                            required = true;
+                        }
+                        else if (tracker == "O") {
+                            
+                            required = false;
+                        }
                         
+                        // looks for course with code and course number in database. If it exists, adds the book to the given section number for that course
                         for(int i = 0; i < courses.size(); i++) {
+                            
                             if(courses[i].getCode() == code && courses[i].getCourseNum() == courseNum){
+                                
                                 courses[i].addBooktoSection(sectionNum,courses[i].findTextbook(ISBN),required);
                             }
                         }
                         
-                        /*
-                         // would work better with map instead of vector
-                         for(int i = 0; i < courses.size(); i++) {
-                         if (code == courses[i].getCode()) {
-                         for(int i = 0; i < textbooks.size(); i++) {
-                         if (textbooks[i].getISBN() == ISBN) {
-                         if (tracker == "R") {
-                             courses[i].addBooktoSection(sectionNum,textbooks[i]->getISBN(),true);
-                         }
-                         else if (tracker == "O") {
-                             courses[i].addBooktoSection(sectionNum,book->getISBN(),false);
-                         }
-                         }
-                         }
-                         }
-                         else {
-                         cout << "Course doesn't exist!" << endl;
-                         }
-                         }
-                        */
-                        
+                        cout << "Done.\n";
                         break;
                         
+                    // prints all books required and optional for a course
                     case GC:
                         
-                        // Print the books required and optional for all sections of a given course
-                        cout << "Required: " << endl;
                         cin >> code >> courseNum;
                         
-                        if(courses.size() > 0) {
-                            for(int i = 0; i < courses.size(); i++) {
-                                if(courses[i].getCode() == code && courses[i].getCourseNum() == courseNum){
-                                    courses[i].listAllBooks();
-                                }
+                        for(int i = 0; i < courses.size(); i++) {
+                            
+                            if(courses[i].getCode() == code && courses[i].getCourseNum() == courseNum){
+                                
+                                courses[i].listAllBooks();
                             }
                         }
                         
+                        cout << "Done.\n";
                         break;
                         
+                    // Print the books required and optional for a given section of a course
                     case GS:
                         
-                        // Print the books required and optional for a given section of a course
-                        
                         if(courses.size() > 0) {
+                            
+                            // goes through all courses
                             for(int i = 0; i < courses.size(); i++) {
-                                if((courses[i].getCode() == code) && (courses[i].getCourseNum() == courseNum)){
+                            
+                                // if code and course number match, list all books for a section
+                                if((courses[i].getCode() == code) && (courses[i].getCourseNum() == courseNum)) {
+                                
+                                    // list section books
                                     courses[i].listSectionBooks(sectionNum);
                                 }
                             }
                         }
                         
+                        cout << "Done.\n";
                         break;
-                        
+                    
+                    // lists all information about a book
                     case GB:
                         
                         cin >> ISBN;     // collects ISBN number
                         
                         // search for book with matching ISBN number, then print it
-                        for(int i = 0; i < textbooks.size(); i++) {
-                            if (ISBN == textbooks[i].getISBN()) {
-                                cout << "*\n";
-                                textbooks[i].printBook();
-                                cout << "*\n";
+                        if(textbooks.size() > 0) {
+                            
+                            for(int i = 0; i < textbooks.size(); i++) {
+                                
+                                if (ISBN == textbooks[i].getISBN()) {
+                                    
+                                    cout << "*\n";
+                                    textbooks[i].printBook();
+                                    cout << "*\n";
+                                }
                             }
                         }
+                        
+                        cout << "Done.\n";
                         break;
                         
+                    // prints all books
                     case PB:
                         
-                        // prints all books in the textbook database
                         cout << "\nPrinting all books... \n\n";
                         printBooks(textbooks);
-                        break;
                         
+                        cout << "Done.\n";
+                        break;
+                    
+                    // prints all courses
                     case PC:
                         
                         // prints all courses in the course database
                         cout << "\nPrinting all courses... \n\n";
                         printCourses(courses);
+                        
+                        cout << "Done.\n";
                         break;
                         
+                    // Print all books with known publication dates in the given month/year or later
                     case PY:
                         
-                        // Print all books with known publication dates in the given month/year or later.
+                        cin >> date;
+                        
+                        if (textbooks.size() > 0) {
+                            
+                            // goes through textbook database and finds matching date
+                            for(int i = 0; i < textbooks.size(); i++) {
+                               
+                                // if date matches, print book info
+                                if (date == textbooks[i].getPubDate()) {
+                                    
+                                    cout << "*\n";
+                                    textbooks[i].printBook();
+                                    cout << "*\n";
+                                }
+                            }
+                        }
+                        
+                        cout << "Done.\n";
                         break;
                         
+                    // Print the list of all books used in a department, given by department code. Do not list by section
                     case PD:
                         
-                        // Print the list of all books used in a department, given by department code. Do not list by section
-                        break;
+                        cin >> code;
                         
+                        if (courses.size() > 0) {
+                            
+                            // goes through courses and finds matching code, then prints associated textbooks
+                            for(int i = 0; i < courses.size(); i++) {
+                                
+                                // if code matches, print all books for department
+                                if (code == courses[i].getCode()) {
+                                    
+                                    cout << "*\n";
+                                    courses[i].listAllBooks();
+                                    cout << "*\n";
+                                }
+                            }
+                        }
+                        
+                        cout << "Done.\n";
+                        break;
+                    
+                    // Print the AVERAGE minimum and maximum costs of all books in a department
                     case PM:
                         
-                        // Print the AVERAGE minimum and maximum costs of all books in a department
+                        cin >> code;
+                        
+                        // goes through courses and finds matching course code. If code matches, print total average min and max for courses with that code
+                        for(int i = 0; i < courses.size(); i++) {
+                            
+                            if (code == courses[i].getCode()) {
+                                
+                                cout << "*\n";
+                                courses[i].printMinMax(code);
+                                cout << "*\n";
+                            }
+                        }
+                        
+                        cout << "Done.\n";
                         break;
                         
                     default:
                         break;
-                        
                 };
             }
             
             
             cout << "---" << endl;
-        }
-    }
+        } // end while
+    } // end try
+    
     catch(exception& e) {
         cout << "Exception: " << e.what() << endl;
     }
-}
+    
+} // end main
 
 
 
